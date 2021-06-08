@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/210413_concurrency_models_learn.iml" filepath="$PROJECT_DIR$/.idea/210413_concurrency_models_learn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/actor-elixir/actor-elixir.iml" filepath="$PROJECT_DIR$/actor-elixir/actor-elixir.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csp-go/csp-go.iml" filepath="$PROJECT_DIR$/csp-go/csp-go.iml" />
+      <module fileurl="file://$PROJECT_DIR$/functional-programming-clojure/functional-programming-clojure.iml" filepath="$PROJECT_DIR$/functional-programming-clojure/functional-programming-clojure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lambda-java/lambda-java.iml" filepath="$PROJECT_DIR$/lambda-java/lambda-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/separating-identity-from-state-clojure/separating-identity-from-state-clojure.iml" filepath="$PROJECT_DIR$/separating-identity-from-state-clojure/separating-identity-from-state-clojure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/threads-lock-java/threads-lock-java.iml" filepath="$PROJECT_DIR$/threads-lock-java/threads-lock-java.iml" />
+    </modules>
+  </component>
+</project>
