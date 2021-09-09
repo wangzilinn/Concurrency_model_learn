@@ -32,6 +32,18 @@ public class Downloader extends Thread {
         }
     }
 
+    public void betterUpdateProgress(int n) {
+        ArrayList<ProgressListener> progressListenerCopy;
+        // 减少持有锁的时间
+        synchronized (this) {
+            // 此处的clone会把持有的引用数组也复制一份
+            progressListenerCopy = (ArrayList<ProgressListener>) listeners.clone();
+        }
+        for (ProgressListener progressListener : progressListenerCopy) {
+            progressListener.onProgress(n);
+        }
+    }
+
     @Override
     public void run() {
         int n;

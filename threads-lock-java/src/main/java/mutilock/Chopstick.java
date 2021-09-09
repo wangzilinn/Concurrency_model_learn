@@ -8,12 +8,7 @@
  ***/
 package mutilock;
 
-class Chopstick {
-    private int id;
-
-    public Chopstick(int id) {
-        this.id = id;
-    }
+record Chopstick(int id) {
 
     public int getId() {
         return id;

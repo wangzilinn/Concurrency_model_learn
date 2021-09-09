@@ -7,14 +7,14 @@ import java.util.Random;
  * @Date: 9/8/2021 9:27 PM
  */
 public class Philosopher extends Thread {
-    private final int id;
-    private final Chopstick leftHand;
-    private final Chopstick rightHand;
-    private final Random random;
+    final private int id;
+    final private Chopstick leftHand;
+    final private Chopstick rightHand;
+    final private Random random;
 
-    public Philosopher(int id, Chopstick left, Chopstick right, boolean fix) {
+    public Philosopher(int id, Chopstick left, Chopstick right, boolean order) {
         this.id = id;
-        if (!fix) {
+        if (!order) {
             // 可能造成死锁的情况：
             this.leftHand = left;
             this.rightHand = right;
@@ -55,8 +55,8 @@ public class Philosopher extends Thread {
         try {
             while (true) {
                 // 书中的1000要等好久，100复现率更高
+                System.out.println(id + " waiting");
                 Thread.sleep(random.nextInt(100));
-                System.out.println(id + " wait");
                 synchronized (leftHand) {
                     System.out.println(id + " take " + leftHand.getId());
                     synchronized (rightHand) {
