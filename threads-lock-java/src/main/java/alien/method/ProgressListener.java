@@ -1,3 +1,4 @@
+package alien.method;
 /***
  * Excerpted from "Seven Concurrency Models in Seven Weeks",
  * published by The Pragmatic Bookshelf.
@@ -5,9 +6,7 @@
  * courses, books, articles, and the like. Contact us if you are in doubt.
  * We make no guarantees that this code is fit for any purpose.
  * Visit http://www.pragmaticprogrammer.com/titles/pb7con for more book information.
-***/
-package alien.method;
-
+ ***/
 interface ProgressListener {
-  void onProgress(int current);
+  void onProgress(int current) throws InterruptedException;
 }
