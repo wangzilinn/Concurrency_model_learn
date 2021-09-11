@@ -1,4 +1,5 @@
 package word.count;
+
 /***
  * Excerpted from "Seven Concurrency Models in Seven Weeks",
  * published by The Pragmatic Bookshelf.
@@ -8,11 +9,32 @@ package word.count;
  * Visit http://www.pragmaticprogrammer.com/titles/pb7con for more book information.
  ***/
 class Page {
-  private String title;
-  private String text;
+    private final String title;
+    private final String text;
+    private boolean finalPage = false;
 
-  public Page(String title, String text) { this.title = title; this.text = text; }
+    public Page(String title, String text) {
+        this.title = title;
+        this.text = text;
+    }
 
-  public String getTitle() { return title; }
-  public String getText() { return text; }
+    public static Page finalPage() {
+        Page page = new Page("", "");
+        page.finalPage = true;
+        return page;
+    }
+
+    public boolean isFinal() {
+        return finalPage;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+
 }

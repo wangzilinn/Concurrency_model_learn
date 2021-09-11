@@ -31,8 +31,13 @@ record Words(String text) implements Iterable<String> {
 
     public String next() {
       String s = text.substring(start, end);
+
       start = end;
       end = wordBoundary.next();
+      if (s.contains(".")) {
+        String[] split = s.split("\\.");
+        return split.length == 0 ? "" : split[0];
+      }
       return s;
     }
 
