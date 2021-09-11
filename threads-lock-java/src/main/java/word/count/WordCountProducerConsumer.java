@@ -12,19 +12,13 @@ public class WordCountProducerConsumer {
     public static void main(String[] args) throws InterruptedException {
         singleConsumer();
 
-        multiConsumer(2, false);
-        multiConsumer(3, false);
-        multiConsumer(4, false);
-        multiConsumer(5, false);
-        multiConsumer(6, false);
-        multiConsumer(7, false);
+        for (int i = 2; i < 7; ++i) {
+            multiConsumer(i, false);
+        }
 
-        multiConsumer(2, true);
-        multiConsumer(3, true);
-        multiConsumer(4, true);
-        multiConsumer(5, true);
-        multiConsumer(6, true);
-        multiConsumer(7, true);
+        for (int i = 2; i < 7; ++i) {
+            multiConsumer(i, true);
+        }
     }
 
     public static void singleConsumer() throws InterruptedException {
