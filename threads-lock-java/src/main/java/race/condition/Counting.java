@@ -9,11 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Counting {
     public static void main(String[] args) throws InterruptedException {
         class Counter {
-            private int count = 0;
-
-            private int concurrentCount = 0;
-
             private final AtomicInteger atomicCount = new AtomicInteger();
+            private int count = 0;
+            private int concurrentCount = 0;
 
             // synchronized 来避免加法错误
             public synchronized void concurrentIncrement() {
@@ -46,8 +44,8 @@ public class Counting {
         long endTime = System.nanoTime();
         System.out.println("程序运行时间： " + (endTime - startTime) + "ns");
         // 私有属性也能直接访问
-        System.out.println(counter.concurrentCount);
-        System.out.println(counter.atomicCount);
-        System.out.println(counter.count);
+        System.out.println(counter.concurrentCount);//2000
+        System.out.println(counter.atomicCount);//2000
+        System.out.println(counter.count);//1995左右
     }
 }

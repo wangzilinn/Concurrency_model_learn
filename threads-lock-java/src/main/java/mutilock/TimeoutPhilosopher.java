@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: wangzilinn@gmail.com
  * @Date: 9/9/2021 8:56 PM
  */
-public class TimeoutPhilosopher extends Thread{
+public class TimeoutPhilosopher extends Thread {
     final private int id;
     final private TimeoutChopstick leftHand;
     final private TimeoutChopstick rightHand;
@@ -18,36 +18,6 @@ public class TimeoutPhilosopher extends Thread{
         this.leftHand = leftHand;
         this.rightHand = rightHand;
         this.random = new Random();
-    }
-
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                System.out.println(id + " waiting");
-                Thread.sleep(random.nextInt(10));
-                leftHand.lock();
-                try {
-                    // 没有避免死锁, 而是提供了解决死锁的手段
-                    if (rightHand.tryLock(1000, TimeUnit.MILLISECONDS)) {
-                        try {
-                            // 获取到了右手的筷子
-                            System.out.println(id + " eating");
-                            Thread.sleep(10);
-                        } finally {
-                            rightHand.unlock();
-                        }
-                    }else {
-                        // 当没有获取右手的筷子,则继续waiting
-                        System.out.println("require timeout");
-                    }
-                } finally {
-                    leftHand.unlock();
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -67,5 +37,36 @@ public class TimeoutPhilosopher extends Thread{
         philosopher1.join();
         philosopher2.join();
         philosopher3.join();
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                System.out.println(id + " waiting");
+                Thread.sleep(random.nextInt(10));
+                leftHand.lock();
+                try {
+                    // 没有避免死锁, 而是提供了解决死锁的手段
+                    if (rightHand.tryLock(1000, TimeUnit.MILLISECONDS)) {
+                        try {
+                            // 获取到了右手的筷子
+                            System.out.println(id + " eating");
+                            Thread.sleep(10);
+                        } finally {
+                            rightHand.unlock();
+                        }
+                    } else {
+                        // 当没有获取右手的筷子,则继续waiting
+                        System.out.println("require timeout");
+                    }
+                } finally {
+                    // 如果获取右手的筷子超时,则直接会执行这里,放弃左边的筷子
+                    leftHand.unlock();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

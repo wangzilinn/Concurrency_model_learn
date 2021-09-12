@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @Date: 9/9/2021 9:19 PM
  */
 public class ConcurrentSortedList {
-    private class Node{
+    private static class Node{
         int value;
         Node prev;
         Node next;

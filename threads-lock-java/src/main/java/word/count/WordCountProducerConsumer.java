@@ -12,11 +12,11 @@ public class WordCountProducerConsumer {
     public static void main(String[] args) throws InterruptedException {
         singleConsumer();
 
-        for (int i = 2; i < 7; ++i) {
+        for (int i = 2; i < 16; ++i) {
             multiConsumer(i, false);
         }
 
-        for (int i = 2; i < 7; ++i) {
+        for (int i = 2; i < 16; ++i) {
             multiConsumer(i, true);
         }
     }
@@ -59,7 +59,7 @@ public class WordCountProducerConsumer {
         long end = System.currentTimeMillis();
 
         System.out.println(end - start);
-        System.out.println(counts);
+        // System.out.println(counts);
     }
 
     record Parser(BlockingQueue<Page> queue) implements Runnable {

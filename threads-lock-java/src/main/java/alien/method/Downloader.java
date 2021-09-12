@@ -35,11 +35,14 @@ public class Downloader extends Thread {
         copyOnWriteListeners.add(progressListener);
     }
 
-    public synchronized void updateProgress(int n) throws InterruptedException {
+    public synchronized void updateProgressUnsafe(int n) throws InterruptedException {
         // 并发会出现问题，如遍历时其他线程删除了监听器
         for (ProgressListener progressListener : listeners) {
             progressListener.onProgress(n);
         }
+    }
+
+    public synchronized void updateProgressCopyOnWrite(int n) throws InterruptedException {
         // 使用写时复制的listeners就不用像下面一样每次都复制了
         for (ProgressListener progressListener : copyOnWriteListeners) {
             progressListener.onProgress(n);
@@ -47,7 +50,7 @@ public class Downloader extends Thread {
     }
 
     @SuppressWarnings("unchecked")
-    public void betterUpdateProgress(int n) throws InterruptedException {
+    public void updateProgressWithClone(int n) throws InterruptedException {
         ArrayList<ProgressListener> progressListenerCopy;
         // 减少持有锁的时间
         synchronized (this) {
@@ -69,7 +72,7 @@ public class Downloader extends Thread {
             while ((n = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, n);
                 total += n;
-                updateProgress(total);
+                updateProgressCopyOnWrite(total);
             }
             outputStream.flush();
         } catch (IOException | InterruptedException e) {
@@ -90,9 +93,10 @@ public class Downloader extends Thread {
         new Thread(()->{
             for (int i = 0; i < 10; i++) {
                 try {
-                    downloader.betterUpdateProgress(i);
+                    // downloader.updateProgressWithClone(i);
                     // 如果使用该方法会报异常：ConcurrentModificationException
-                    // downloader.updateProgress(i);
+                    // downloader.updateProgressUnsafe(i);
+                    downloader.updateProgressCopyOnWrite(i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -106,6 +110,7 @@ public class Downloader extends Thread {
                 e.printStackTrace();
             }
             downloader.listeners.remove(0);
+            downloader.copyOnWriteListeners.remove(0);
         }).start();
     }
 }

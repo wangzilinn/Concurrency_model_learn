@@ -32,6 +32,7 @@ public class Philosopher extends Thread {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        // 创建三个哲学家
         Chopstick chopstick1 = new Chopstick(1);
         Chopstick chopstick2 = new Chopstick(2);
         Chopstick chopstick3 = new Chopstick(3);

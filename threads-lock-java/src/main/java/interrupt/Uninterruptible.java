@@ -5,7 +5,7 @@ package interrupt;
  * @Date: 9/9/2021 8:22 PM
  */
 public class Uninterruptible {
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         final Object o1 = new Object();
         final Object o2 = new Object();
 
@@ -45,6 +45,5 @@ public class Uninterruptible {
 
         thread1.join();
         thread2.join();
-
     }
 }
