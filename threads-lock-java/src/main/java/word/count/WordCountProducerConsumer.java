@@ -1,6 +1,7 @@
 package word.count;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -83,6 +84,7 @@ public class WordCountProducerConsumer {
 
         @Override
         public void run() {
+
             Map<String, Integer> countMap;
             if (useLocalMap) {
                 countMap = new ConcurrentHashMap<>();
